@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invitación Pollito Party 🐔🐶</title>
+
+  <style>
+    :root{
+      --bg1:#fff6d6;
+      --bg2:#ffe1a8;
+      --card:#ffffffcc;
+      --ink:#2b2b2b;
+      --accent:#ffb300;
+      --accent2:#ff6f00;
+      --green:#3aa36b;
+      --shadow: 0 18px 50px rgba(0,0,0,.12);
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, var(--bg1), transparent 60%),
+        radial-gradient(900px 500px at 80% 20%, var(--bg2), transparent 60%),
+        linear-gradient(180deg, #fff 0%, #fff1c7 55%, #ffe7b6 100%);
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:18px;
+      overflow-x:hidden;
+    }
+
+    /* Gallinitas flotantes */
+    .floaties{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+    }
+    .floaties span{
+      position:absolute;
+      font-size:28px;
+      animation: drift 14s linear infinite;
+    }
+    @keyframes drift{
+      0%{ transform: translateY(110vh); }
+      100%{ transform: translateY(-30vh); }
+    }
+
+    .card{
+      width:min(950px, 100%);
+      background:var(--card);
+      border-radius:26px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    h1{
+      font-size:clamp(26px,4.5vw,44px);
+      margin:8px 0 6px;
+      line-height:1.05;
+    }
+
+    .name{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:8px 12px;
+      border-radius:999px;
+      background: rgba(255,179,0,.18);
+      border: 1px dashed rgba(255,111,0,.35);
+      font-weight:900;
+      margin: 6px 0 12px;
+      max-width:100%;
+      flex-wrap:wrap;
+    }
+
+    .sub{
+      opacity:.85;
+      margin:0 0 14px;
+      line-height:1.35;
+      font-size: 15px;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+      align-items:start;
+    }
+
+    @media(max-width:800px){
+      .hero{ grid-template-columns:1fr; }
+      .card{ padding:16px; border-radius:22px; }
+    }
+
+    /* CONTENEDOR DE IMAGEN */
+    .big-emoji{
+      background:#fff;
+      border-radius:22px;
+      padding:10px;
+      display:grid;
+      place-items:center;
+      min-height:220px;
+      position:relative;
+      overflow:hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,.10);
+    }
+
+    /* Brillito suave */
+    .big-emoji::after{
+      content:"";
+      position:absolute;
+      inset:-60%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.55), transparent 45%);
+      transform: rotate(10deg);
+      animation: glow 4.8s ease-in-out infinite;
+      pointer-events:none;
+      opacity:.35;
+    }
+    @keyframes glow{
+      0%,100%{ transform: translate(0,0) rotate(10deg); opacity:.28; }
+      50%{ transform: translate(10px, -10px) rotate(10deg); opacity:.42; }
+    }
+
+    /* FOTO ANIMADA */
+    .hero-img{
+      width:100%;
+      height:240px;
+      object-fit:cover;
+      object-position: center 20%; /* tu ajuste interno */
+      border-radius:18px;
+      box-shadow:0 12px 28px rgba(0,0,0,.18);
+      transform: translateY(0);
+      animation: floaty 3.6s ease-in-out infinite;
+      transition: transform .18s ease, filter .18s ease;
+      position:relative;
+      z-index:1;
+      cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    @keyframes floaty{
+      0%,100%{ transform: translateY(0); }
+      50%{ transform: translateY(6px); }
+    }
+    .hero-img:active{
+      transform: scale(0.995);
+      filter: saturate(1.05) contrast(1.02);
+    }
+
+    .hint{
+      margin-top:10px;
+      font-size:12px;
+      opacity:.8;
+      text-align:center;
+      background: rgba(0,0,0,.04);
+      border: 1px solid rgba(0,0,0,.06);
+      padding:10px 12px;
+      border-radius:14px;
+    }
+
+    .details{
+      background:#fff;
+      border-radius:22px;
+      padding:16px;
+      display:grid;
+      gap:10px;
+    }
+
+    .pill{
+      display:inline-block;
+      background:#eaf7f0;
+      border-radius:999px;
+      padding:6px 10px;
+      font-weight:700;
+      font-size:13px;
+    }
+
+    .countdown{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin-top:10px;
+    }
+
+    @media(max-width:520px){
+      .countdown{ grid-template-columns:repeat(2,1fr); }
+    }
+
+    .timebox{
+      background:#fff;
+      border-radius:16px;
+      text-align:center;
+      padding:10px;
+      box-shadow: 0 6px 16px rgba(0,0,0,.08);
+    }
+
+    .num{ font-size:28px; font-weight:900; }
+    .lab{ font-size:12px; opacity:.7; font-weight:700; }
+
+    /* Música */
+    .music{
+      margin-top:10px;
+      padding:12px;
+      border-radius:18px;
+      background: rgba(255,241,199,.65);
+      border: 1px solid rgba(255,179,0,.22);
+    }
+    .music .title{
+      font-weight:900;
+      margin:0 0 8px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    /* En móvil, a veces el control nativo se ve raro; igual lo dejamos */
+    audio{ width:100%; }
+
+    .mini-controls{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+      align-items:center;
+    }
+
+    .btn{
+      border:none;
+      border-radius:999px;
+      font-weight:900;
+      cursor:pointer;
+      padding:12px 14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      box-shadow: 0 10px 22px rgba(255,111,0,.20);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn.secondary{
+      background: rgba(0,0,0,.06);
+      box-shadow:none;
+    }
+
+    .tiny{
+      font-size:12px;
+      opacity:.75;
+      margin-top:10px;
+      line-height:1.3;
+    }
+
+    .status{
+      margin-top:8px;
+      font-size:12px;
+      font-weight:700;
+      opacity:.85;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Gallinitas -->
+  <div class="floaties" aria-hidden="true">
+    <span style="left:10%">🐔</span>
+    <span style="left:30%">🐣</span>
+    <span style="left:50%">🍗</span>
+    <span style="left:70%">🐔</span>
+    <span style="left:85%">🐣</span>
+  </div>
+
+  <section class="card">
+    <h1>🎉 Pollito Party 🐔</h1>
+    <div class="name">🐶 La cumpleañera: <span>Maga</span> ✨</div>
+
+    <p class="sub">
+      Nuestra perrita cumple <b>4 añitos</b> 🐶  
+      ¡Te invitamos a celebrar con temática de pollo!
+    </p>
+
+    <div class="hero">
+      <!-- IMAGEN GRANDE (tocar para reproducir en móvil) -->
+      <div>
+        <div class="big-emoji">
+          <img
+            id="heroImg"
+            class="hero-img"
+            src="https://scontent.fcvj2-1.fna.fbcdn.net/v/t39.30808-6/598902044_1398004581899303_6147565639125151799_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_eui2=AeFOt-driNJBGmBjcvVoBzY-mX1TCE9yY9WZfVMIT3Jj1dhHEy87dw9_otAatMMQ2VpVL7_ZS7Dbu1yQaFMiw2qV&_nc_ohc=AEOqSwI9JmIQ7kNvwFf3-oJ&_nc_oc=AdlmMvxZ_Wd1oP9qh5dShb52tH4XmDKo3iVmr1p4N_gR8sNI2Rn0GePcWA1Vc-uBJ8poqdgepb5s2COUP5C4Zdnq&_nc_zt=23&_nc_ht=scontent.fcvj2-1.fna&_nc_gid=mmxDDgPiXGHGUpnAwnDm0g&oh=00_AfmHWvIQ-b4tgbmCBVmvkljag9pl5gj9jWDm7jZImscD_Q&oe=6946C03F"
+            alt="Fiesta perrita temática pollo"
+            title="Toca la foto para poner la música 🎶"
+          />
+        </div>
+
+        <div class="hint">📱 Tip: en celular toca la foto de Maga o el botón <b>▶️ Play</b> para que suene 🎶</div>
+      </div>
+
+      <!-- DETALLES -->
+      <div class="details">
+        <div><span class="pill">📅 Fecha</span> 26 de diciembre de 2025</div>
+        <div><span class="pill">⏰ Hora</span> 17:00 hrs</div>
+        <div><span class="pill">📍 Lugar</span> Casa de Mamá pollo ("Doña Adela :3")</div>
+        <div><span class="pill">🎁 Dress code</span> Amarillo / blanco 🐥</div>
+
+        <div>
+          <b>⏳ Cuenta regresiva</b>
+          <div class="countdown">
+            <div class="timebox"><div class="num" id="d">--</div><div class="lab">Días</div></div>
+            <div class="timebox"><div class="num" id="h">--</div><div class="lab">Horas</div></div>
+            <div class="timebox"><div class="num" id="m">--</div><div class="lab">Min</div></div>
+            <div class="timebox"><div class="num" id="s">--</div><div class="lab">Seg</div></div>
+          </div>
+        </div>
+
+        <!-- 🎵 Música (Dropbox directo) -->
+        <div class="music">
+          <p class="title">🎶 Música del Pollito Party</p>
+
+          <!-- preload none ayuda en iOS y datos móviles -->
+          <audio id="player" controls loop preload="none" playsinline>
+            <source
+              src="https://dl.dropboxusercontent.com/scl/fi/oygydwmou9ob1clfoveyi/Charly-Black-Daddy-Yankee-Gyal-You-A-Party-Animal-RemixAudio.mp3?rlkey=f84gwvbyd4wvtzm1vme5sjv3v&st=ubi70fa7"
+              type="audio/mpeg"
+            />
+            Tu navegador no soporta audio 😿
+          </audio>
+
+          <div class="mini-controls">
+            <button class="btn secondary" type="button" id="btnPlay">▶️ Play</button>
+            <button class="btn secondary" type="button" id="btnPause">⏸️ Pausa</button>
+            <button class="btn secondary" type="button" id="btnLow">🔉 Volumen 30%</button>
+            <button class="btn secondary" type="button" id="btnFull">🔊 Volumen 100%</button>
+          </div>
+
+          <div class="status" id="musicStatus">Estado: listo para sonar 🎵</div>
+          <div class="tiny">
+            Si estás en iPhone y no suena: abre esta invitación en <b>Safari o Chrome</b> y toca Play o la foto.
+          </div>
+        </div>
+
+        <button class="btn" onclick="copiar()">Copiar invitación para WhatsApp 🟢</button>
+        <div class="tiny">RSVP: ____________</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // ===== Cuenta regresiva =====
+    const target = new Date(2025,11,26,12,0,0);
+
+    function tick(){
+      const now = new Date();
+      const diff = target - now;
+      if(diff <= 0) return;
+
+      const t = Math.floor(diff/1000);
+      document.getElementById("d").textContent = Math.floor(t/86400);
+      document.getElementById("h").textContent = Math.floor((t%86400)/3600);
+      document.getElementById("m").textContent = Math.floor((t%3600)/60);
+      document.getElementById("s").textContent = t%60;
+    }
+    setInterval(tick,1000);
+    tick();
+
+    // ===== Copiar WhatsApp =====
+    function copiar(){
+      const txt =
+`🐶🐔 Invitación Pollito Party
+La cumpleañera: Maga ✨ (cumple 4 años) 🎂
+
+📅 26 de diciembre de 2025
+⏰ Hora: 17:00 hrs
+📍 Lugar: Casa de Mamá pollo ("Doña Adela :3")
+
+🎶 Habrá música
+Dress code: amarillo/blanco 🐥`;
+      navigator.clipboard.writeText(txt);
+      alert("¡Invitación copiada! 🐣");
+    }
+
+    // ===== Música: soporte móvil (requiere interacción del usuario) =====
+    const player = document.getElementById("player");
+    const statusEl = document.getElementById("musicStatus");
+    const heroImg = document.getElementById("heroImg");
+
+    function setStatus(msg){ statusEl.textContent = "Estado: " + msg; }
+
+    async function safePlay(){
+      try{
+        // En móviles, esto debe ejecutarse tras un toque/clic del usuario
+        player.volume = player.volume || 0.6;
+        await player.play();
+        setStatus("sonando 🎶");
+      } catch(e){
+        console.error(e);
+        setStatus("bloqueado. Toca ▶️ Play (o revisa que no esté en modo silencioso).");
+        alert("En celular, el navegador a veces bloquea audio si no fue por un toque directo.\nToca el botón ▶️ Play o la foto de Maga.");
+      }
+    }
+
+    document.getElementById("btnPlay").addEventListener("click", safePlay);
+    document.getElementById("btnPause").addEventListener("click", () => { player.pause(); setStatus("pausado ⏸️"); });
+    document.getElementById("btnLow").addEventListener("click", () => { player.volume = 0.3; setStatus("volumen 30% 🔉"); });
+    document.getElementById("btnFull").addEventListener("click", () => { player.volume = 1.0; setStatus("volumen 100% 🔊"); });
+
+    // TOCAR LA FOTO = reproducir (ideal para móvil)
+    heroImg.addEventListener("click", safePlay);
+    heroImg.addEventListener("touchend", (e) => { e.preventDefault(); safePlay(); }, { passive:false });
+
+    // Eventos útiles
+    player.addEventListener("playing", () => setStatus("sonando 🎶"));
+    player.addEventListener("pause", () => setStatus("pausado ⏸️"));
+    player.addEventListener("error", () => setStatus("error al cargar audio (link o red) ❌"));
+
+    // Arranca con volumen moderado
+    player.volume = 0.6;
+  </script>
+
+</body>
+</html>
